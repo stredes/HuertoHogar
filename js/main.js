@@ -1,3 +1,57 @@
+// Renderizado de catálogo de productos para productos.html
+function renderCatalogo() {
+  const cont = document.getElementById('grid');
+  const estado = document.getElementById('estado');
+  if (!cont) return;
+  cont.innerHTML = '';
+  const lista = PRODUCTOS;
+  if (!lista.length) {
+    if (estado) estado.hidden = false;
+    return;
+  }
+  if (estado) estado.hidden = true;
+  for (const p of lista) {
+    const sinStock = Number(p.stock) <= 0;
+    let imgSrc = p.img;
+    if (window.location.pathname.includes('/pages/')) {
+      if (imgSrc.startsWith('images/')) imgSrc = '../' + imgSrc;
+    }
+    const col = document.createElement('div');
+    col.className = "col-12 col-sm-6 col-lg-4";
+    col.innerHTML = `
+      <div class="card h-100 shadow-sm">
+        <img src="${imgSrc}" class="card-img-top" alt="${p.nombre}" loading="lazy">
+        <div class="card-body d-flex flex-column">
+          <span class="badge bg-warning text-dark align-self-start mb-2">${p.code}</span>
+          <h5 class="card-title mb-1">${p.nombre}</h5>
+          <p class="card-text text-muted mb-1">${formatPrecio(p.precio)} / ${p.unidad}</p>
+          <p class="card-text ${sinStock ? 'text-danger' : 'text-body-secondary'}">
+            ${sinStock ? 'Sin stock' : `Stock: ${p.stock}`}
+          </p>
+          <div class="mt-auto d-flex gap-2">
+            <a class="btn btn-outline-success w-50" href="producto_detalle.html?code=${encodeURIComponent(p.code)}">Ver</a>
+            <button class="btn btn-success w-50" data-code="${p.code}" ${sinStock ? 'disabled' : ''}>Añadir</button>
+          </div>
+        </div>
+      </div>
+    `;
+    const btn = col.querySelector('button[data-code]');
+    if (btn && !sinStock) {
+      btn.addEventListener('click', (e) => {
+        const code = e.currentTarget.getAttribute('data-code');
+        addToCart(code, 1);
+      });
+    }
+    cont.appendChild(col);
+  }
+}
+
+// Llamar a renderCatalogo en productos.html
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('grid')) {
+    renderCatalogo();
+  }
+});
 /* main.js — HuertoHogar
    - Render de productos destacados en Home
    - Carrito con localStorage

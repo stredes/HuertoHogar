@@ -58,15 +58,23 @@
 
       <div class="col-12 col-md-6">
         <label for="pass" class="form-label">Contraseña <span class="text-danger">*</span></label>
-        <input id="pass" name="pass" type="password" class="form-control" required minlength="4" maxlength="10" />
-        <div class="form-text">Entre 4 y 10 caracteres.</div>
-        <div class="invalid-feedback">La contraseña debe tener entre 4 y 10 caracteres.</div>
+        <input id="pass" name="pass" type="password" class="form-control" required minlength="4" maxlength="10" aria-describedby="requisitos-pass" />
+        <div id="requisitos-pass" class="form-text" style="font-size:0.95em; color:#8B4513;">
+          La contraseña debe tener:
+          <ul style="margin-bottom:0;">
+            <li>Entre 4 y 10 caracteres</li>
+            <li>Al menos una letra mayúscula</li>
+            <li>Al menos una letra minúscula</li>
+            <li>Al menos un número</li>
+            <li>Al menos un carácter especial (@$!%*?&)</li>
+          </ul>
+        </div>
       </div>
 
       <div class="col-12 col-md-6">
         <label for="pass2" class="form-label">Confirmar contraseña <span class="text-danger">*</span></label>
         <input id="pass2" name="pass2" type="password" class="form-control" required />
-        <div class="invalid-feedback" id="err-pass2">Las contraseñas no coinciden.</div>
+  <div class="invalid-feedback" id="err-pass2">Las contraseñas no coinciden.</div>
       </div>
 
       <div class="col-12 d-flex gap-2">
@@ -88,58 +96,7 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script src="../js/registro.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Validador de dominios permitidos
-    function correoPermitido(v) {
-      if (!v) return false;
-      v = v.toLowerCase();
-      return v.endsWith('@duoc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
-    }
-
-    const form = document.getElementById('form-reg');
-    form.addEventListener('submit', (e) => {
-      // Usamos la validación nativa + nuestras reglas
-      let ok = true;
-
-      // validación nativa Bootstrap
-      if (!form.checkValidity()) ok = false;
-
-      // correo dominio permitido
-      const correo = document.getElementById('correo');
-      if (!correoPermitido(correo.value)) {
-        ok = false;
-        correo.classList.add('is-invalid');
-        document.getElementById('err-correo').textContent = 'El correo debe pertenecer a @duoc.cl, @profesor.duoc.cl o @gmail.com';
-      } else {
-        correo.classList.remove('is-invalid');
-      }
-
-      // contraseñas coinciden
-      const p1 = document.getElementById('pass');
-      const p2 = document.getElementById('pass2');
-      if ((p1.value || '').length < 4 || (p1.value || '').length > 10 || p1.value !== p2.value) {
-        ok = false;
-        p2.classList.add('is-invalid');
-        document.getElementById('err-pass2').textContent = 'Las contraseñas deben coincidir (4–10 caracteres).';
-      } else {
-        p2.classList.remove('is-invalid');
-      }
-
-      if (!ok) {
-        e.preventDefault();
-        e.stopPropagation();
-      } else {
-        e.preventDefault(); // solo simulación
-        document.getElementById('ok').classList.remove('d-none');
-        form.reset();
-        form.classList.remove('was-validated');
-      }
-      form.classList.add('was-validated');
-    });
-  </script>
 </body>
 </html>
