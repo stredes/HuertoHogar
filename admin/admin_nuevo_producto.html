@@ -11,7 +11,7 @@
 </head>
 <body class="bg-light">
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" aria-label="Barra de navegación">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
       <span class="navbar-text text-muted ms-2">Panel administrador</span>
@@ -22,21 +22,28 @@
   <main class="container my-4" style="max-width:720px;">
     <h1 class="h4 text-success fw-bold mb-3">Agregar nuevo producto</h1>
 
-    <div class="alert alert-info">⚠️ Esta página es solo una maqueta de formulario. No guarda datos reales.</div>
+    <div class="alert alert-info" role="status">⚠️ Esta página es solo una maqueta de formulario. No guarda datos reales.</div>
 
     <form id="form" class="row g-3 needs-validation" novalidate>
+      <!-- Código -->
       <div class="col-12 col-md-4">
         <label class="form-label" for="code">Código</label>
-        <input id="code" type="text" class="form-control" required minlength="3" maxlength="20">
-        <div class="invalid-feedback">Código requerido (mínimo 3).</div>
+        <input id="code" type="text" class="form-control"
+               required minlength="3" maxlength="20"
+               pattern="^[A-Za-z0-9]{3,20}$"
+               placeholder="Ej: FR001">
+        <div class="form-text">Solo letras y números, sin espacios. Ej: FR001</div>
+        <div class="invalid-feedback">Código requerido (3–20, solo letras y números, sin espacios).</div>
       </div>
 
+      <!-- Nombre -->
       <div class="col-12 col-md-8">
         <label class="form-label" for="nombre">Nombre</label>
-        <input id="nombre" type="text" class="form-control" required maxlength="100">
+        <input id="nombre" type="text" class="form-control" required maxlength="100" placeholder="Ej: Manzanas Fuji">
         <div class="invalid-feedback">Nombre requerido (máx. 100).</div>
       </div>
 
+      <!-- Categoría -->
       <div class="col-12 col-md-4">
         <label class="form-label" for="categoria">Categoría</label>
         <select id="categoria" class="form-select" required>
@@ -49,53 +56,125 @@
         <div class="invalid-feedback">Categoría obligatoria.</div>
       </div>
 
+      <!-- Precio -->
       <div class="col-6 col-md-4">
         <label class="form-label" for="precio">Precio</label>
-        <input id="precio" type="number" class="form-control" required min="0">
-        <div class="invalid-feedback">Precio ≥ 0.</div>
+        <input id="precio" type="number" class="form-control" required min="0" step="1" inputmode="numeric" placeholder="Ej: 1200">
+        <div class="invalid-feedback">Precio debe ser un número ≥ 0.</div>
       </div>
 
+      <!-- Stock -->
       <div class="col-6 col-md-4">
         <label class="form-label" for="stock">Stock</label>
-        <input id="stock" type="number" class="form-control" required min="0" step="1">
+        <input id="stock" type="number" class="form-control" required min="0" step="1" inputmode="numeric" placeholder="Ej: 150">
         <div class="invalid-feedback">Stock entero ≥ 0.</div>
       </div>
 
+      <!-- Unidad -->
       <div class="col-12 col-md-6">
         <label class="form-label" for="unidad">Unidad</label>
-        <input id="unidad" type="text" class="form-control" required maxlength="20" placeholder="kg, unidad, 500 g">
+        <input id="unidad" list="unidades" type="text" class="form-control" required maxlength="20" placeholder="kg, unidad, 500 g">
+        <datalist id="unidades">
+          <option value="kg"></option>
+          <option value="unidad"></option>
+          <option value="500 g"></option>
+          <option value="250 g"></option>
+          <option value="litro"></option>
+          <option value="frasco"></option>
+        </datalist>
         <div class="invalid-feedback">Unidad requerida.</div>
       </div>
 
+      <!-- Imagen -->
       <div class="col-12 col-md-6">
         <label class="form-label" for="img">Imagen (URL)</label>
-        <input id="img" type="url" class="form-control" placeholder="https://… (opcional)">
+        <input id="img" type="url" class="form-control" placeholder="https://… (opcional)"
+               pattern="^https:\/\/.+">
+        <div class="form-text">Si ingresas URL, debe comenzar con <code>https://</code>.</div>
+        <div class="invalid-feedback">URL inválida (usa https://).</div>
       </div>
 
+      <!-- Acciones -->
       <div class="col-12 d-flex gap-2">
         <button class="btn btn-success" type="submit">Guardar (demo)</button>
         <a class="btn btn-outline-secondary" href="admin_productos.html">Cancelar</a>
       </div>
     </form>
 
-    <div id="ok" class="alert alert-success mt-3 d-none">✅ Producto registrado (demo, no persistente).</div>
+    <div id="ok" class="alert alert-success mt-3 d-none" role="alert">
+      ✅ Producto registrado (demo, no persistente).
+    </div>
   </main>
 
+  <!-- JS app compartido -->
   <script src="../js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
   <script>
+    // --- Guardia mínima de rol (front simulado) ---
+    // Permite: Administrador y Vendedor. Otros → login.
+    (function guardRol() {
+      try {
+        const type = localStorage.getItem('userType');
+        if (!type || !['Administrador','Vendedor'].includes(type)) {
+          window.location.href = '../pages/login.html';
+        }
+      } catch {
+        // Si localStorage falla, no bloqueamos para no dejarlo atascado
+      }
+    })();
+
+    // --- Helpers de validación adicionales ---
+    const trimValue = (el) => {
+      if (!el) return;
+      el.value = (el.value || '').trim();
+    };
+
+    // Normaliza y valida campos antes del checkValidity
+    function sanitizeBeforeValidate(form) {
+      ['code', 'nombre', 'unidad', 'img'].forEach(id => trimValue(document.getElementById(id)));
+
+      // Code en mayúsculas (opcional, útil si usas prefijos FR/VR/PO/PL)
+      const codeEl = document.getElementById('code');
+      if (codeEl && codeEl.value) codeEl.value = codeEl.value.toUpperCase();
+    }
+
+    // --- Submit handler ---
     const form = document.getElementById('form');
-    form.addEventListener('submit', e => {
-      if(!form.checkValidity()){
-        e.preventDefault(); e.stopPropagation();
+    const okBox = document.getElementById('ok');
+
+    form.addEventListener('submit', (e) => {
+      sanitizeBeforeValidate(form);
+
+      // Validación HTML5
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
       } else {
         e.preventDefault();
-        document.getElementById('ok').classList.remove('d-none');
-        toast("Producto simulado correctamente.", "success");
+
+        // Simulación de "guardar"
+        okBox.classList.remove('d-none');
+        toast('Producto simulado correctamente.', 'success');
+
+        // Reset limpio
         form.reset();
         form.classList.remove('was-validated');
+        // (Opcional) Devuelve el foco al primer campo
+        document.getElementById('code').focus();
       }
       form.classList.add('was-validated');
+    });
+
+    // Evita números negativos por scroll accidental en inputs number
+    ['precio', 'stock'].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('wheel', (evt) => {
+        if (document.activeElement === el) evt.preventDefault();
+      }, { passive: false });
     });
   </script>
 </body>

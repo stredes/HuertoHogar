@@ -6,7 +6,10 @@
   <title>Productos | HuertoHogar</title>
 
   <!-- Bootstrap 5.3.8 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
 
   <!-- Estilos propios -->
   <link rel="stylesheet" href="../css/styles.css" />
@@ -14,11 +17,13 @@
 <body class="bg-light">
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" aria-label="Barra de navegación">
     <div class="container">
       <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
-        aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+              aria-controls="nav" aria-expanded="false" aria-label="Alternar navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -28,7 +33,11 @@
           <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
           <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
           <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
-          <li class="nav-item"><a class="btn btn-outline-success ms-2" href="carrito.html">🛒 Carrito</a></li>
+          <li class="nav-item">
+            <a class="btn btn-outline-success ms-2 d-flex align-items-center gap-2" href="carrito.html" aria-label="Ir al carrito">
+              🛒 Carrito <span id="cart-badge" class="badge text-bg-success" hidden>0</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -44,10 +53,10 @@
 
   <main class="container my-4">
     <!-- Filtros -->
-    <form class="row g-3 align-items-end mb-3" id="form-filtros">
+    <form class="row g-3 align-items-end mb-3" id="form-filtros" novalidate>
       <div class="col-12 col-md-6">
         <label for="q" class="form-label">Buscar</label>
-        <input id="q" type="search" class="form-control" placeholder="Ej: manzana, miel, leche…">
+        <input id="q" type="search" class="form-control" placeholder="Ej: manzana, miel, leche…" autocomplete="off">
       </div>
       <div class="col-6 col-md-3">
         <label for="categoria" class="form-label">Categoría</label>
@@ -95,63 +104,75 @@
   <!-- JS app compartido -->
   <script src="../js/main.js"></script>
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
 
   <!-- Script de página: render catálogo y filtros -->
   <script>
-    // Mapeo simple de categorías por código
+    // === Utilidades locales ===
     const MAP_CATEGORIA = {
       FR: "Frutas Frescas",
       VR: "Verduras Orgánicas",
       PO: "Productos Orgánicos",
       PL: "Productos Lácteos",
     };
+    const norm = s => (s || "")
+      .toString()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase().trim();
 
     function categoriaDe(code) {
-      // Toma los dos primeros caracteres del código (FR, VR, PO, PL)
-      const pref = (code || "").slice(0,2);
+      const pref = (code || "").slice(0, 2).toUpperCase();
       return MAP_CATEGORIA[pref] || "";
     }
 
+    // === Filtros ===
     function filtroProductos(lista) {
-      const q = document.getElementById('q').value.trim().toLowerCase();
-      const cat = document.getElementById('categoria').value;
+      const qVal  = document.getElementById('q').value;
+      const q = norm(qVal);
+      const cat   = document.getElementById('categoria').value;
+      const ord   = document.getElementById('orden').value;
+
       let res = [...lista];
 
       if (q) {
         res = res.filter(p =>
-          p.nombre.toLowerCase().includes(q) ||
-          String(p.code).toLowerCase().includes(q)
+          norm(p.nombre).includes(q) ||
+          norm(String(p.code)).includes(q)
         );
       }
       if (cat) {
         res = res.filter(p => categoriaDe(p.code) === cat);
       }
-      const ord = document.getElementById('orden').value;
-      if (ord === 'precio_asc') res.sort((a,b)=>a.precio-b.precio);
-      if (ord === 'precio_desc') res.sort((a,b)=>b.precio-a.precio);
-      if (ord === 'nombre_asc') res.sort((a,b)=>a.nombre.localeCompare(b.nombre));
-      if (ord === 'nombre_desc') res.sort((a,b)=>b.nombre.localeCompare(a.nombre));
+
+      if (ord === 'precio_asc')  res.sort((a,b)=> a.precio - b.precio);
+      if (ord === 'precio_desc') res.sort((a,b)=> b.precio - a.precio);
+      if (ord === 'nombre_asc')  res.sort((a,b)=> a.nombre.localeCompare(b.nombre));
+      if (ord === 'nombre_desc') res.sort((a,b)=> b.nombre.localeCompare(a.nombre));
 
       return res;
     }
 
+    // === Render catálogo ===
     function renderCatalogo() {
-      const cont = document.getElementById('grid');
+      const cont   = document.getElementById('grid');
       const estado = document.getElementById('estado');
-      cont.innerHTML = '';
+      if (!cont) return;
 
-      const lista = filtroProductos(window.PRODUCTOS || []);
-      if (lista.length === 0) {
-        estado.hidden = false;
+      cont.innerHTML = '';
+      const lista = filtroProductos(PRODUCTOS || []);
+      if (!lista.length) {
+        if (estado) estado.hidden = false;
         return;
       }
-      estado.hidden = true;
+      if (estado) estado.hidden = true;
 
       for (const p of lista) {
+        const sinStock = Number(p.stock) <= 0;
+
         const col = document.createElement('div');
         col.className = "col-12 col-sm-6 col-lg-4";
-
         col.innerHTML = `
           <div class="card h-100 shadow-sm">
             <img src="${p.img}" class="card-img-top" alt="${p.nombre}" loading="lazy">
@@ -160,31 +181,37 @@
                 <span class="badge bg-secondary">${categoriaDe(p.code)}</span>
                 <span class="badge bg-warning text-dark">${p.code}</span>
               </div>
-              <h5 class="card-title">${p.nombre}</h5>
+              <h5 class="card-title mb-1">${p.nombre}</h5>
               <p class="card-text text-muted mb-1">${formatPrecio(p.precio)} / ${p.unidad}</p>
-              <p class="card-text"><small class="text-body-secondary">Stock: ${p.stock}</small></p>
+              <p class="card-text ${sinStock ? 'text-danger' : 'text-body-secondary'}">
+                ${sinStock ? 'Sin stock' : `Stock: ${p.stock}`}
+              </p>
               <div class="mt-auto d-flex gap-2">
                 <a class="btn btn-outline-success w-50" href="producto_detalle.html?code=${encodeURIComponent(p.code)}">Ver</a>
-                <button class="btn btn-success w-50" data-code="${p.code}">Añadir</button>
+                <button class="btn btn-success w-50" data-code="${p.code}" ${sinStock ? 'disabled' : ''}>Añadir</button>
               </div>
             </div>
           </div>
         `;
-        // acción añadir
-        col.querySelector('button[data-code]').addEventListener('click', (e)=>{
-          addToCart(e.currentTarget.getAttribute('data-code'), 1);
-        });
+
+        const btn = col.querySelector('button[data-code]');
+        if (btn && !sinStock) {
+          btn.addEventListener('click', (e) => {
+            const code = e.currentTarget.getAttribute('data-code');
+            addToCart(code, 1);
+          });
+        }
 
         cont.appendChild(col);
       }
     }
 
-    // Eventos de filtros
+    // === Eventos ===
     document.getElementById('q').addEventListener('input', renderCatalogo);
     document.getElementById('categoria').addEventListener('change', renderCatalogo);
     document.getElementById('orden').addEventListener('change', renderCatalogo);
 
-    // Año en footer + primer render
+    // Año footer + primer render
     document.getElementById('year').textContent = new Date().getFullYear();
     document.addEventListener('DOMContentLoaded', () => {
       renderCatalogo();
