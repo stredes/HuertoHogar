@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Nuevo usuario — HuertoHogar</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
+      <span class="navbar-text text-muted ms-2">Panel administrador</span>
+      <a class="btn btn-outline-success ms-auto" href="admin_usuarios.html">← Volver a usuarios</a>
+    </div>
+  </nav>
+
+  <main class="container my-4" style="max-width:720px;">
+    <h1 class="h4 text-success fw-bold mb-3">Registrar nuevo usuario</h1>
+
+    <div class="alert alert-info">⚠️ Esta página es solo maqueta. No se crean usuarios reales.</div>
+
+    <form id="form-user" class="row g-3 needs-validation" novalidate>
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="run">RUN</label>
+        <input id="run" type="text" class="form-control" required minlength="7" maxlength="12" placeholder="Ej: 12345678K">
+        <div class="invalid-feedback">RUN requerido (7–12 caracteres, sin puntos ni guion).</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="nombre">Nombre completo</label>
+        <input id="nombre" type="text" class="form-control" required maxlength="100">
+        <div class="invalid-feedback">Nombre requerido.</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="correo">Correo</label>
+        <input id="correo" type="email" class="form-control" required maxlength="100" placeholder="usuario@duoc.cl">
+        <div class="form-text">Dominios: @duoc.cl, @profesor.duoc.cl, @gmail.com</div>
+        <div class="invalid-feedback">Correo obligatorio con dominio permitido.</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="tipo">Tipo</label>
+        <select id="tipo" class="form-select" required>
+          <option value="">Seleccionar…</option>
+          <option>Administrador</option>
+          <option>Vendedor</option>
+          <option>Cliente</option>
+        </select>
+        <div class="invalid-feedback">Selecciona tipo.</div>
+      </div>
+
+      <div class="col-12 d-flex gap-2">
+        <button class="btn btn-success" type="submit">Guardar (demo)</button>
+        <a class="btn btn-outline-secondary" href="admin_usuarios.html">Cancelar</a>
+      </div>
+    </form>
+
+    <div id="ok" class="alert alert-success mt-3 d-none">✅ Usuario registrado (demo, no persistente).</div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function correoPermitido(v){
+      if(!v) return false;
+      v = v.toLowerCase();
+      return v.endsWith('@duoc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
+    }
+
+    const form = document.getElementById('form-user');
+    form.addEventListener('submit', e=>{
+      let ok = true;
+      if(!form.checkValidity()) ok = false;
+      const correo = document.getElementById('correo');
+      if(!correoPermitido(correo.value)){ ok=false; correo.classList.add('is-invalid'); }
+      if(!ok){ e.preventDefault(); e.stopPropagation(); }
+      else {
+        e.preventDefault();
+        document.getElementById('ok').classList.remove('d-none');
+        toast("Usuario simulado correctamente.", "success");
+        form.reset();
+        form.classList.remove('was-validated');
+      }
+      form.classList.add('was-validated');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/* ======================================================
+   HuertoHogar - estilos adicionales a Bootstrap
+   Paleta: Verde (#198754), Amarillo (#ffc107), Marrón (#8d6e63)
+   ====================================================== */
+
+/* Reset suave */
+body {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #212529;
+    background-color: #f8f9fa;
+  }
+  
+  /* Navbar */
+  .navbar-brand {
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+  }
+  .navbar-nav .nav-link.active {
+    font-weight: 600;
+    color: #198754 !important;
+  }
+  
+  /* Botones */
+  .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+  }
+  .btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+  }
+  .btn-outline-success {
+    color: #198754;
+    border-color: #198754;
+  }
+  .btn-outline-success:hover {
+    background-color: #198754;
+    color: #fff;
+  }
+  
+  /* Badges custom */
+  .badge.bg-warning.text-dark {
+    background-color: #ffc107 !important;
+  }
+  .badge.bg-brown {
+    background-color: #8d6e63;
+    color: #fff;
+  }
+  
+  /* Footer */
+  footer {
+    font-size: 0.9rem;
+  }
+  footer a {
+    text-decoration: none;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Hero y encabezados */
+  header h1, header .h1,
+  header h2, header .h2,
+  header h3, header .h3 {
+    font-weight: 700;
+    color: #198754;
+  }
+  header p {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  /* Tarjetas */
+  .card {
+    border-radius: 0.75rem;
+  }
+  .card-img-top {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+  }
+  
+  /* Inputs / formularios */
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+  }
+  
+  /* Toasts (main.js) */
+  .toast {
+    font-size: 0.9rem;
+  }
+  .toast.bg-success { background-color: #198754 !important; color: #fff; }
+  .toast.bg-warning { background-color: #ffc107 !important; color: #212529; }
+  .toast.bg-secondary { background-color: #6c757d !important; color: #fff; }
+  
+  /* Blog cards */
+  #grid .card-title {
+    color: #198754;
+    font-weight: 600;
+  }
+  
+  /* Admin sidebar */
+  .sidebar {
+    background: #fff;
+  }
+  .sidebar .nav-link {
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .sidebar .nav-link:hover {
+    background-color: #f1fdf5;
+  }
+  
+  /* Utilidades */
+  .text-brown { color: #8d6e63; }
+  .bg-brown { background-color: #8d6e63; }
+  

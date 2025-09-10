@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Inicio — HuertoHogar</title>
+
+  <!-- Bootstrap 5.3.8 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Estilos propios (opcional) -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    /* Ajustes mínimos para el panel admin */
+    .sidebar {
+      min-height: 100vh;
+      border-right: 1px solid #e9ecef;
+      background: #fff;
+    }
+    .sidebar .nav-link.active { background: #e9f6ee; color: #198754; font-weight: 600; }
+    .card-kpi .kpi-value { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; }
+    .card-kpi .kpi-sub   { color: #6c757d; }
+  </style>
+</head>
+<body class="bg-light">
+
+  <!-- Barra superior -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
+      <span class="navbar-text text-muted ms-2 d-none d-sm-inline">Panel administrador</span>
+      <div class="ms-auto me-3">
+        <a class="btn btn-outline-success" href="../pages/productos.html">Ver tienda</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Menú lateral -->
+      <aside class="col-12 col-md-3 col-lg-2 sidebar p-3">
+        <nav class="nav flex-column gap-1">
+          <div class="text-uppercase text-muted small mb-2">Navegación</div>
+          <a class="nav-link active" aria-current="page" href="admin_home.html">Inicio</a>
+          <a class="nav-link" href="admin_productos.html">Productos</a>
+          <a class="nav-link" href="admin_usuarios.html">Usuarios</a>
+        </nav>
+      </aside>
+
+      <!-- Contenido -->
+      <main class="col-12 col-md-9 col-lg-10 p-3 p-md-4">
+        <!-- Título + acciones rápidas -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+          <div>
+            <h1 class="h4 text-success fw-bold mb-0">Resumen del administrador</h1>
+            <small class="text-muted">Panel estático para la evaluación (sin backend).</small>
+          </div>
+          <div class="d-flex gap-2">
+            <!-- Botones deshabilitados (no requeridos en Forma A) -->
+            <a class="btn btn-secondary disabled" aria-disabled="true" title="No requerido en esta entrega">+ Nuevo producto</a>
+            <a class="btn btn-outline-secondary disabled" aria-disabled="true" title="No requerido en esta entrega">+ Nuevo usuario</a>
+          </div>
+        </div>
+
+        <!-- KPIs (placeholders) -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="card card-kpi shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="kpi-value text-success">24</div>
+                    <div class="kpi-sub small">Productos publicados</div>
+                  </div>
+                  <span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">OK</span>
+                </div>
+                <small class="text-muted d-block mt-2">Dato referencial para demo.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="card card-kpi shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="kpi-value text-primary">7</div>
+                    <div class="kpi-sub small">Usuarios registrados</div>
+                  </div>
+                  <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle">Demo</span>
+                </div>
+                <small class="text-muted d-block mt-2">Consistente con admin_usuarios.html.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="card card-kpi shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="kpi-value text-warning">5</div>
+                    <div class="kpi-sub small">Stock crítico</div>
+                  </div>
+                  <span class="badge bg-warning text-dark">Revisar</span>
+                </div>
+                <small class="text-muted d-block mt-2">Placeholder (sin lógica de inventario).</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-3">
+            <div class="card card-kpi shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="kpi-value text-danger">0</div>
+                    <div class="kpi-sub small">Alertas</div>
+                  </div>
+                  <span class="badge bg-danger">N/A</span>
+                </div>
+                <small class="text-muted d-block mt-2">Sin alertas en esta demo.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actividad reciente (estático) -->
+        <div class="row g-3">
+          <div class="col-12 col-xl-7">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h2 class="h6 text-success fw-bold mb-0">Actividad reciente</h2>
+                  <a class="btn btn-sm btn-outline-success disabled" aria-disabled="true">Ver todo</a>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-semibold">Actualización de precios</div>
+                      <small class="text-muted">Productos frescos — ajuste estacional (demo)</small>
+                    </div>
+                    <span class="badge bg-secondary rounded-pill">hoy</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-semibold">Nuevo usuario</div>
+                      <small class="text-muted">Valentina Díaz (Vendedor)</small>
+                    </div>
+                    <span class="badge bg-secondary rounded-pill">ayer</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-semibold">Publicación</div>
+                      <small class="text-muted">Espinacas Frescas disponibles</small>
+                    </div>
+                    <span class="badge bg-secondary rounded-pill">2d</span>
+                  </li>
+                </ul>
+                <small class="text-muted d-block mt-2">*Solo para fines de presentación.</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pendientes / Tareas (estático) -->
+          <div class="col-12 col-xl-5">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h2 class="h6 text-success fw-bold mb-0">Pendientes</h2>
+                  <button class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Agregar</button>
+                </div>
+                <div class="vstack gap-2">
+                  <div class="p-3 border rounded d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">Revisar stock crítico</div>
+                      <small class="text-muted">Pimientos tricolores, Manzanas Fuji</small>
+                    </div>
+                    <span class="badge bg-warning text-dark">Prioridad</span>
+                  </div>
+                  <div class="p-3 border rounded d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">Actualizar banner Home</div>
+                      <small class="text-muted">Campaña “Frescura de temporada”</small>
+                    </div>
+                    <span class="badge bg-secondary">Baja</span>
+                  </div>
+                  <div class="p-3 border rounded d-flex justify-content-between align-items-center">
+                    <div>
+                      <div class="fw-semibold">Revisar categorías</div>
+                      <small class="text-muted">Catalogación por prefijos FR/VR/PO/PL</small>
+                    </div>
+                    <span class="badge bg-secondary">Baja</span>
+                  </div>
+                </div>
+                <small class="text-muted d-block mt-2">*Recordatorios de ejemplo (no persistentes).</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enlaces rápidos -->
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <h2 class="h6 text-success fw-bold mb-3">Enlaces rápidos</h2>
+            <div class="d-flex flex-wrap gap-2">
+              <a class="btn btn-outline-success" href="admin_productos.html">Ir a Productos</a>
+              <a class="btn btn-outline-success" href="admin_usuarios.html">Ir a Usuarios</a>
+              <a class="btn btn-outline-success" href="../pages/productos.html">Ver catálogo público</a>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS compartido (para toasts si se usan en otras páginas) -->
+  <script src="../js/main.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+</body>
+</html>

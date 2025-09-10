@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Productos — HuertoHogar</title>
+
+  <!-- Bootstrap 5.3.8 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .sidebar{min-height:100vh;border-right:1px solid #e9ecef;background:#fff;}
+    .sidebar .nav-link.active{background:#e9f6ee;color:#198754;font-weight:600;}
+    .table td,.table th{vertical-align:middle;}
+    .thumb{width:72px;height:48px;object-fit:cover;border-radius:.25rem;border:1px solid #eee;background:#f8f9fa;}
+  </style>
+</head>
+<body class="bg-light">
+
+  <!-- Barra superior -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
+      <span class="navbar-text text-muted ms-2 d-none d-sm-inline">Panel administrador</span>
+      <div class="ms-auto me-3">
+        <a class="btn btn-outline-success" href="../pages/productos.html">Ver tienda</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <aside class="col-12 col-md-3 col-lg-2 sidebar p-3">
+        <nav class="nav flex-column gap-1">
+          <div class="text-uppercase text-muted small mb-2">Navegación</div>
+          <a class="nav-link" href="admin_home.html">Inicio</a>
+          <a class="nav-link active" aria-current="page" href="admin_productos.html">Productos</a>
+          <a class="nav-link" href="admin_usuarios.html">Usuarios</a>
+        </nav>
+      </aside>
+
+      <!-- Contenido -->
+      <main class="col-12 col-md-9 col-lg-10 p-3 p-md-4">
+
+        <!-- Encabezado -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+          <div>
+            <h1 class="h4 text-success fw-bold mb-0">Mantenedor de productos</h1>
+            <small class="text-muted">Alta básica + listado con acciones (demo sin backend).</small>
+          </div>
+        </div>
+
+        <!-- Formulario de alta (validaciones según pauta) -->
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <h2 class="h6 text-success fw-bold mb-3">Nuevo producto</h2>
+
+            <!-- NOTA: el envío es preventDefault (simulación). Se agrega en la tabla local. -->
+            <form id="form-prod" class="row g-3 needs-validation" novalidate>
+              <!-- Código (≥ 3) -->
+              <div class="col-12 col-md-4">
+                <label for="code" class="form-label">Código <span class="text-danger">*</span></label>
+                <input id="code" type="text" class="form-control" required minlength="3" maxlength="20" placeholder="Ej: FR010" />
+                <div class="invalid-feedback">Código requerido (mínimo 3 caracteres).</div>
+              </div>
+
+              <!-- Nombre -->
+              <div class="col-12 col-md-8">
+                <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                <input id="nombre" type="text" class="form-control" required maxlength="100" placeholder="Ej: Manzanas Fuji Premium" />
+                <div class="invalid-feedback">Nombre requerido (máx. 100).</div>
+              </div>
+
+              <!-- Categoría (obligatoria) -->
+              <div class="col-12 col-md-4">
+                <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                <select id="categoria" class="form-select" required>
+                  <option value="">Seleccionar…</option>
+                  <option>Frutas Frescas</option>
+                  <option>Verduras Orgánicas</option>
+                  <option>Productos Orgánicos</option>
+                  <option>Productos Lácteos</option>
+                </select>
+                <div class="invalid-feedback">Selecciona una categoría.</div>
+              </div>
+
+              <!-- Precio (≥ 0) -->
+              <div class="col-6 col-md-3">
+                <label for="precio" class="form-label">Precio (CLP) <span class="text-danger">*</span></label>
+                <input id="precio" type="number" class="form-control" required min="0" step="1" placeholder="Ej: 1200" />
+                <div class="invalid-feedback">El precio debe ser ≥ 0 (entero).</div>
+              </div>
+
+              <!-- Stock (≥ 0 e entero) -->
+              <div class="col-6 col-md-3">
+                <label for="stock" class="form-label">Stock <span class="text-danger">*</span></label>
+                <input id="stock" type="number" class="form-control" required min="0" step="1" placeholder="Ej: 100" />
+                <div class="invalid-feedback">El stock debe ser un entero ≥ 0.</div>
+              </div>
+
+              <!-- Unidad -->
+              <div class="col-12 col-md-2">
+                <label for="unidad" class="form-label">Unidad <span class="text-danger">*</span></label>
+                <input id="unidad" type="text" class="form-control" required maxlength="20" placeholder="kg | 500 g | unidad" />
+                <div class="invalid-feedback">Unidad requerida (ej.: kg, 500 g, unidad).</div>
+              </div>
+
+              <!-- Imagen (URL simple para demo) -->
+              <div class="col-12">
+                <label for="img" class="form-label">Imagen (URL)</label>
+                <input id="img" type="url" class="form-control" placeholder="https://… (opcional, usará placeholder si se deja vacío)" />
+              </div>
+
+              <div class="col-12 d-flex gap-2">
+                <button class="btn btn-success" type="submit">Agregar</button>
+                <button class="btn btn-outline-secondary" type="reset">Limpiar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Filtros del listado -->
+        <div class="card shadow-sm mb-3">
+          <div class="card-body">
+            <form class="row g-3 align-items-end">
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="q">Buscar</label>
+                <input id="q" type="search" class="form-control" placeholder="Ej: código, nombre…" />
+              </div>
+              <div class="col-6 col-md-3">
+                <label class="form-label" for="fcat">Categoría</label>
+                <select id="fcat" class="form-select">
+                  <option value="">Todas</option>
+                  <option>Frutas Frescas</option>
+                  <option>Verduras Orgánicas</option>
+                  <option>Productos Orgánicos</option>
+                  <option>Productos Lácteos</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-3">
+                <label class="form-label" for="forder">Ordenar por</label>
+                <select id="forder" class="form-select">
+                  <option value="">Relevancia</option>
+                  <option value="precio_asc">Precio: menor a mayor</option>
+                  <option value="precio_desc">Precio: mayor a menor</option>
+                  <option value="nombre_asc">Nombre A–Z</option>
+                  <option value="nombre_desc">Nombre Z–A</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Listado -->
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th style="min-width:90px;">Img</th>
+                    <th style="min-width:120px;">Código</th>
+                    <th style="min-width:220px;">Nombre</th>
+                    <th style="min-width:150px;">Categoría</th>
+                    <th class="text-end" style="min-width:120px;">Precio</th>
+                    <th class="text-end" style="min-width:100px;">Stock</th>
+                    <th style="min-width:140px;">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+              </table>
+            </div>
+            <div id="estado" class="text-muted mt-2 d-none">No hay resultados…</div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JS compartido (PRODUCTOS, toast, etc.) -->
+  <script src="../js/main.js"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <!-- Lógica específica de la vista -->
+  <script>
+    // ====== Estado in-memory (catálogo admin local) ======
+    // Arrancamos con los PRODUCTOS globales (definidos en js/main.js) como base
+    const CATALOGO = Array.isArray(window.PRODUCTOS) ? [...window.PRODUCTOS] : [];
+
+    // ====== Selectores ======
+    const tbody   = document.getElementById('tbody');
+    const estado  = document.getElementById('estado');
+    const q       = document.getElementById('q');
+    const fcat    = document.getElementById('fcat');
+    const forder  = document.getElementById('forder');
+
+    const f = {
+      code:   document.getElementById('code'),
+      nombre: document.getElementById('nombre'),
+      categoria: document.getElementById('categoria'),
+      precio: document.getElementById('precio'),
+      stock:  document.getElementById('stock'),
+      unidad: document.getElementById('unidad'),
+      img:    document.getElementById('img'),
+      form:   document.getElementById('form-prod'),
+    };
+
+    // ====== Utilidades ======
+    const PLACEHOLDER_IMG = "https://images.unsplash.com/photo-1506806732259-39c2d0268443?w=1200&q=80";
+
+    function toInt(v){ const n = Number(v); return Number.isFinite(n) ? Math.trunc(n) : 0; }
+    function nonNegInt(v){ const n = toInt(v); return n >= 0 ? n : 0; }
+    function nonNegNumber(v){ const n = Number(v); return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0; }
+
+    // ====== CRUD DEMO (solo en memoria) ======
+    function createProd(p) {
+      // Evitar duplicados por código (simple)
+      if (CATALOGO.some(x => x.code.toUpperCase() === p.code.toUpperCase())) {
+        toast("El código ya existe en el listado.", "warning");
+        return false;
+      }
+      CATALOGO.push(p);
+      return true;
+    }
+
+    function deleteProd(code) {
+      const idx = CATALOGO.findIndex(x => x.code === code);
+      if (idx > -1) CATALOGO.splice(idx, 1);
+    }
+
+    // ====== Render listado con filtros y orden ======
+    function filtrarOrdenar(lista) {
+      const term = (q.value || "").trim().toLowerCase();
+      const cat  = (fcat.value || "").trim();
+
+      let out = [...lista];
+      if (term) {
+        out = out.filter(p =>
+          p.code.toLowerCase().includes(term) ||
+          p.nombre.toLowerCase().includes(term)
+        );
+      }
+      if (cat) out = out.filter(p => p.categoria === cat);
+
+      const ord = forder.value;
+      if (ord === "precio_asc") out.sort((a,b)=>a.precio-b.precio);
+      if (ord === "precio_desc") out.sort((a,b)=>b.precio-a.precio);
+      if (ord === "nombre_asc") out.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+      if (ord === "nombre_desc") out.sort((a,b)=>b.nombre.localeCompare(a.nombre));
+
+      return out;
+    }
+
+    function render() {
+      tbody.innerHTML = "";
+      const data = filtrarOrdenar(withCategorias(CATALOGO));
+      if (data.length === 0) {
+        estado.classList.remove("d-none");
+        return;
+      }
+      estado.classList.add("d-none");
+
+      for (const p of data) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><img src="${p.img || PLACEHOLDER_IMG}" alt="${p.nombre}" class="thumb"></td>
+          <td><span class="badge bg-warning text-dark">${p.code}</span></td>
+          <td class="fw-semibold">${p.nombre}<div class="small text-muted">${p.unidad || ""}</div></td>
+          <td>${p.categoria || "-"}</td>
+          <td class="text-end">${formatPrecio(p.precio)}</td>
+          <td class="text-end">${p.stock}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Acciones">
+              <button class="btn btn-outline-secondary btn-sm" data-action="editar" data-code="${p.code}">Editar</button>
+              <button class="btn btn-outline-danger btn-sm" data-action="eliminar" data-code="${p.code}">Eliminar</button>
+            </div>
+          </td>
+        `;
+        // bind acciones
+        tr.querySelector('[data-action="editar"]').addEventListener('click', () => {
+          toast('Acción "Editar" sin implementación en esta entrega.', 'secondary');
+        });
+        tr.querySelector('[data-action="eliminar"]').addEventListener('click', () => {
+          if (confirm(`¿Eliminar el producto ${p.nombre}?`)) {
+            deleteProd(p.code);
+            render();
+            toast('Producto eliminado.', 'warning');
+          }
+        });
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Añade un campo "categoria" deducido si no viene (por compatibilidad con PRODUCTOS de main.js)
+    function withCategorias(lista){
+      return lista.map(p=>{
+        if (p.categoria) return p;
+        const pref = (p.code || "").slice(0,2).toUpperCase();
+        let cat = "";
+        if (pref==="FR") cat = "Frutas Frescas";
+        else if (pref==="VR") cat = "Verduras Orgánicas";
+        else if (pref==="PO") cat = "Productos Orgánicos";
+        else if (pref==="PL") cat = "Productos Lácteos";
+        return { ...p, categoria: cat };
+      });
+    }
+
+    // ====== Alta (submit con validaciones) ======
+    f.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // 1) Validación nativa
+      let ok = f.form.checkValidity();
+
+      // 2) Reglas adicionales (explícitas)
+      if ((f.code.value || "").trim().length < 3) ok = false;
+
+      const precio = nonNegNumber(f.precio.value);
+      if (!Number.isFinite(precio) || precio < 0) ok = false;
+
+      const stock = nonNegInt(f.stock.value);
+      if (!Number.isInteger(stock) || stock < 0) ok = false;
+
+      if (!f.categoria.value) ok = false;
+
+      f.form.classList.add('was-validated');
+      if (!ok) return;
+
+      const nuevo = {
+        code:   (f.code.value || "").trim(),
+        nombre: (f.nombre.value || "").trim(),
+        precio: precio,
+        stock:  stock,
+        unidad: (f.unidad.value || "").trim(),
+        img:    (f.img.value || "").trim() || PLACEHOLDER_IMG,
+        categoria: f.categoria.value
+      };
+
+      if (createProd(nuevo)) {
+        toast("Producto agregado al listado (demo).", "success");
+        f.form.reset();
+        f.form.classList.remove('was-validated');
+        render();
+      }
+    });
+
+    // Reset visual
+    f.form.addEventListener('reset', () => {
+      f.form.classList.remove('was-validated');
+    });
+
+    // Filtros
+    q.addEventListener('input', render);
+    fcat.addEventListener('change', render);
+    forder.addEventListener('change', render);
+
+    // Primer render
+    document.addEventListener('DOMContentLoaded', render);
+  </script>
+</body>
+</html>

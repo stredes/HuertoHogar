@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Nuevo producto — HuertoHogar</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
+      <span class="navbar-text text-muted ms-2">Panel administrador</span>
+      <a class="btn btn-outline-success ms-auto" href="admin_productos.html">← Volver a productos</a>
+    </div>
+  </nav>
+
+  <main class="container my-4" style="max-width:720px;">
+    <h1 class="h4 text-success fw-bold mb-3">Agregar nuevo producto</h1>
+
+    <div class="alert alert-info">⚠️ Esta página es solo una maqueta de formulario. No guarda datos reales.</div>
+
+    <form id="form" class="row g-3 needs-validation" novalidate>
+      <div class="col-12 col-md-4">
+        <label class="form-label" for="code">Código</label>
+        <input id="code" type="text" class="form-control" required minlength="3" maxlength="20">
+        <div class="invalid-feedback">Código requerido (mínimo 3).</div>
+      </div>
+
+      <div class="col-12 col-md-8">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input id="nombre" type="text" class="form-control" required maxlength="100">
+        <div class="invalid-feedback">Nombre requerido (máx. 100).</div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <label class="form-label" for="categoria">Categoría</label>
+        <select id="categoria" class="form-select" required>
+          <option value="">Seleccionar…</option>
+          <option>Frutas Frescas</option>
+          <option>Verduras Orgánicas</option>
+          <option>Productos Orgánicos</option>
+          <option>Productos Lácteos</option>
+        </select>
+        <div class="invalid-feedback">Categoría obligatoria.</div>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <label class="form-label" for="precio">Precio</label>
+        <input id="precio" type="number" class="form-control" required min="0">
+        <div class="invalid-feedback">Precio ≥ 0.</div>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <label class="form-label" for="stock">Stock</label>
+        <input id="stock" type="number" class="form-control" required min="0" step="1">
+        <div class="invalid-feedback">Stock entero ≥ 0.</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="unidad">Unidad</label>
+        <input id="unidad" type="text" class="form-control" required maxlength="20" placeholder="kg, unidad, 500 g">
+        <div class="invalid-feedback">Unidad requerida.</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label class="form-label" for="img">Imagen (URL)</label>
+        <input id="img" type="url" class="form-control" placeholder="https://… (opcional)">
+      </div>
+
+      <div class="col-12 d-flex gap-2">
+        <button class="btn btn-success" type="submit">Guardar (demo)</button>
+        <a class="btn btn-outline-secondary" href="admin_productos.html">Cancelar</a>
+      </div>
+    </form>
+
+    <div id="ok" class="alert alert-success mt-3 d-none">✅ Producto registrado (demo, no persistente).</div>
+  </main>
+
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const form = document.getElementById('form');
+    form.addEventListener('submit', e => {
+      if(!form.checkValidity()){
+        e.preventDefault(); e.stopPropagation();
+      } else {
+        e.preventDefault();
+        document.getElementById('ok').classList.remove('d-none');
+        toast("Producto simulado correctamente.", "success");
+        form.reset();
+        form.classList.remove('was-validated');
+      }
+      form.classList.add('was-validated');
+    });
+  </script>
+</body>
+</html>

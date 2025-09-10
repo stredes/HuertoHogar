@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro | HuertoHogar</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
+          <li class="nav-item"><a class="btn btn-outline-success ms-2" href="carrito.html">🛒 Carrito</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-white border-bottom">
+    <div class="container py-4">
+      <h1 class="h3 text-success fw-bold mb-0">Crear cuenta</h1>
+      <p class="text-muted mb-0">Completa el formulario para registrarte.</p>
+    </div>
+  </header>
+
+  <main class="container my-4">
+    <form id="form-reg" novalidate class="row g-3 needs-validation">
+      <div class="col-12 col-md-6">
+        <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+        <input id="nombre" name="nombre" type="text" class="form-control" required maxlength="50" />
+        <div class="invalid-feedback">Ingresa tu nombre (máx. 50 caracteres).</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+        <input id="apellidos" name="apellidos" type="text" class="form-control" required maxlength="100" />
+        <div class="invalid-feedback">Ingresa tus apellidos (máx. 100 caracteres).</div>
+      </div>
+
+      <div class="col-12">
+        <label for="correo" class="form-label">Correo electrónico <span class="text-danger">*</span></label>
+        <input id="correo" name="correo" type="email" class="form-control" required maxlength="100" placeholder="usuario@duoc.cl" />
+        <div class="form-text">Dominios permitidos: @duoc.cl, @profesor.duoc.cl, @gmail.com</div>
+        <div class="invalid-feedback" id="err-correo">Ingresa un correo válido y permitido.</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="pass" class="form-label">Contraseña <span class="text-danger">*</span></label>
+        <input id="pass" name="pass" type="password" class="form-control" required minlength="4" maxlength="10" />
+        <div class="form-text">Entre 4 y 10 caracteres.</div>
+        <div class="invalid-feedback">La contraseña debe tener entre 4 y 10 caracteres.</div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <label for="pass2" class="form-label">Confirmar contraseña <span class="text-danger">*</span></label>
+        <input id="pass2" name="pass2" type="password" class="form-control" required />
+        <div class="invalid-feedback" id="err-pass2">Las contraseñas no coinciden.</div>
+      </div>
+
+      <div class="col-12 d-flex gap-2">
+        <button class="btn btn-success" type="submit">Crear cuenta</button>
+        <a class="btn btn-outline-success" href="login.html">Ya tengo cuenta</a>
+      </div>
+    </form>
+
+    <!-- Mensaje de éxito simulado (no hay backend en esta entrega) -->
+    <div id="ok" class="alert alert-success mt-4 d-none" role="alert">
+      ✅ Registro simulado correctamente (solo para evaluación). Ahora puedes <a href="login.html" class="alert-link">iniciar sesión</a>.
+    </div>
+  </main>
+
+  <footer class="bg-white border-top py-4 mt-5">
+    <div class="container d-flex justify-content-between flex-wrap">
+      <small>© <span id="year"></span> HuertoHogar.</small>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Validador de dominios permitidos
+    function correoPermitido(v) {
+      if (!v) return false;
+      v = v.toLowerCase();
+      return v.endsWith('@duoc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
+    }
+
+    const form = document.getElementById('form-reg');
+    form.addEventListener('submit', (e) => {
+      // Usamos la validación nativa + nuestras reglas
+      let ok = true;
+
+      // validación nativa Bootstrap
+      if (!form.checkValidity()) ok = false;
+
+      // correo dominio permitido
+      const correo = document.getElementById('correo');
+      if (!correoPermitido(correo.value)) {
+        ok = false;
+        correo.classList.add('is-invalid');
+        document.getElementById('err-correo').textContent = 'El correo debe pertenecer a @duoc.cl, @profesor.duoc.cl o @gmail.com';
+      } else {
+        correo.classList.remove('is-invalid');
+      }
+
+      // contraseñas coinciden
+      const p1 = document.getElementById('pass');
+      const p2 = document.getElementById('pass2');
+      if ((p1.value || '').length < 4 || (p1.value || '').length > 10 || p1.value !== p2.value) {
+        ok = false;
+        p2.classList.add('is-invalid');
+        document.getElementById('err-pass2').textContent = 'Las contraseñas deben coincidir (4–10 caracteres).';
+      } else {
+        p2.classList.remove('is-invalid');
+      }
+
+      if (!ok) {
+        e.preventDefault();
+        e.stopPropagation();
+      } else {
+        e.preventDefault(); // solo simulación
+        document.getElementById('ok').classList.remove('d-none');
+        form.reset();
+        form.classList.remove('was-validated');
+      }
+      form.classList.add('was-validated');
+    });
+  </script>
+</body>
+</html>
