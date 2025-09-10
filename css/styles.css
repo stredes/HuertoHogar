@@ -1,51 +1,95 @@
+/* Imágenes de productos: tamaño uniforme */
+.card-img-top {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  background: #eee;
+}
 /* ======================================================
    HuertoHogar - estilos adicionales a Bootstrap
    Paleta: Verde (#198754), Amarillo (#ffc107), Marrón (#8d6e63)
    ====================================================== */
 
-/* Reset suave */
+
+/* Reset suave y paleta personalizada */
 body {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #212529;
-    background-color: #f8f9fa;
-  }
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #333333;
+  background-color: #F7F7F7;
+}
+
+/* Encabezados con Playfair Display y marrón */
+h1, h2, h3, h4, h5, h6, .display-4, .display-3, .display-2, .display-1 {
+  font-family: 'Playfair Display', serif;
+  color: #8B4513;
+}
+
+/* Texto secundario */
+.text-secondary, .text-muted, .card-text.text-body-secondary {
+  color: #666666 !important;
+}
+
+/* Texto principal forzado */
+.text-dark, .card-text, p, li, span, label, input, select, textarea {
+  color: #333333;
+}
   
   /* Navbar */
   .navbar-brand {
     font-size: 1.25rem;
     letter-spacing: -0.5px;
   }
-  .navbar-nav .nav-link.active {
-    font-weight: 600;
-    color: #198754 !important;
-  }
+
+.navbar-nav .nav-link.active {
+  font-weight: 600;
+  color: #2E8B57 !important;
+}
+
   
-  /* Botones */
-  .btn-success {
-    background-color: #198754;
-    border-color: #198754;
-  }
-  .btn-success:hover {
-    background-color: #157347;
-    border-color: #146c43;
-  }
-  .btn-outline-success {
-    color: #198754;
-    border-color: #198754;
-  }
-  .btn-outline-success:hover {
-    background-color: #198754;
-    color: #fff;
-  }
+
+/* Botones acento */
+.btn-success, .btn-outline-success {
+  background-color: #2E8B57;
+  border-color: #2E8B57;
+  color: #fff;
+}
+.btn-success:hover, .btn-outline-success:hover {
+  background-color: #276846;
+  border-color: #276846;
+  color: #fff;
+}
+.btn-warning {
+  background-color: #FFD700;
+  border-color: #FFD700;
+  color: #8B4513 !important;
+}
+.btn-warning:hover {
+  background-color: #e6c200;
+  border-color: #e6c200;
+  color: #8B4513 !important;
+}
+.btn-light {
+  background-color: #fff;
+  border-color: #ccc;
+  color: #8B4513 !important;
+}
+.btn-light:hover {
+  background-color: #f7f7f7;
+  border-color: #8B4513;
+  color: #8B4513 !important;
+}
   
-  /* Badges custom */
-  .badge.bg-warning.text-dark {
-    background-color: #ffc107 !important;
-  }
-  .badge.bg-brown {
-    background-color: #8d6e63;
-    color: #fff;
-  }
+
+/* Badges custom */
+.badge.bg-warning.text-dark {
+  background-color: #FFD700 !important;
+  color: #8B4513 !important;
+}
+.badge.bg-brown {
+  background-color: #8B4513;
+  color: #fff;
+}
   
   /* Footer */
   footer {
@@ -63,11 +107,11 @@ body {
   header h2, header .h2,
   header h3, header .h3 {
     font-weight: 700;
-    color: #198754;
+    color: #8B4513;
   }
   header p {
     font-size: 1rem;
-    color: #6c757d;
+    color: #8B4513;
   }
   
   /* Tarjetas */

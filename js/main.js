@@ -10,13 +10,13 @@
 // -----------------------------
 const PRODUCTOS = [
     // Frutas Frescas
-    { code: "FR001", nombre: "Manzanas Fuji", precio: 1200, unidad: "kg",     stock: 150, img: "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?q=80&w=1200" },
-    { code: "FR002", nombre: "Naranjas Valencia", precio: 1000, unidad: "kg",  stock: 200, img: "https://images.unsplash.com/photo-1547514701-42782101795e?q=80&w=1200" },
-    { code: "FR003", nombre: "Plátanos Cavendish", precio: 800,  unidad: "kg", stock: 250, img: "https://images.unsplash.com/photo-1571772805064-207c8435df79?q=80&w=1200" },
+  { code: "FR001", nombre: "Manzanas Fuji", precio: 1200, unidad: "kg",     stock: 150, img: "images/manzana.jpeg" },
+    { code: "FR002", nombre: "Naranjas Valencia", precio: 1000, unidad: "kg",  stock: 200, img: "images/naranja.jpeg" },
+    { code: "FR003", nombre: "Plátanos Cavendish", precio: 800,  unidad: "kg", stock: 250, img: "images/platanos-cavendish.jpg" },
     // Verduras Orgánicas
-    { code: "VR001", nombre: "Zanahorias Orgánicas", precio: 900, unidad: "kg",    stock: 100, img: "https://images.unsplash.com/photo-1515542706656-8e6ef17a1521?q=80&w=1200" },
-    { code: "VR002", nombre: "Espinacas Frescas",    precio: 700, unidad: "500 g", stock: 80,  img: "https://images.unsplash.com/photo-1547056961-3a1e3a6ffbaf?q=80&w=1200" },
-    { code: "VR003", nombre: "Pimientos Tricolores", precio: 1500, unidad: "kg",   stock: 120, img: "https://images.unsplash.com/photo-1511690078903-71dc5a56f694?q=80&w=1200" },
+    { code: "VR001", nombre: "Zanahorias Orgánicas", precio: 900, unidad: "kg",    stock: 100, img: "images/zanahoria.jpg" },
+    { code: "VR002", nombre: "Espinacas Frescas",    precio: 700, unidad: "500 g", stock: 80,  img: "images/espinacas.jpg" },
+    { code: "VR003", nombre: "Pimientos Tricolores", precio: 1500, unidad: "kg",   stock: 120, img: "images/pimientos-tricolores.jpeg" },
     // Productos Orgánicos / Lácteos
     { code: "PO001", nombre: "Miel Orgánica 500g", precio: 5000, unidad: "frasco", stock: 50, img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200" },
     { code: "PL001", nombre: "Leche Entera 1L",    precio: 1200, unidad: "unidad", stock: 90, img: "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=1200" },
