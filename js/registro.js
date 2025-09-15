@@ -27,22 +27,47 @@ document.addEventListener('DOMContentLoaded', function () {
       /[@$!%*?&]/.test(pass);
   }
 
-  if (form) {
+  function correoPermitido(v) {
+    if (!v) return false;
+    v = v.toLowerCase();
+    return v.endsWith('@duoc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
+  }
+
+  if (form && p1 && p2 && errPass2) {
     form.addEventListener('submit', function (e) {
       let ok = true;
-      if (
-        (p1.value || '').length < 4 ||
-        (p1.value || '').length > 10 ||
-        p1.value !== p2.value ||
-        !passwordFuerte(p1.value)
-      ) {
+
+      // Validar correo
+      const correo = document.getElementById('correo');
+      const errCorreo = document.getElementById('err-correo');
+      if (!correoPermitido(correo.value)) {
+        ok = false;
+        correo.classList.add('is-invalid');
+        if (errCorreo) errCorreo.textContent = 'El correo debe pertenecer a @duoc.cl, @profesor.duoc.cl o @gmail.com';
+      } else {
+        correo.classList.remove('is-invalid');
+        if (errCorreo) errCorreo.textContent = '';
+      }
+
+      // Validar contraseña y confirmación
+      if ((p1.value || '').length < 4 ||
+          (p1.value || '').length > 10 ||
+          !passwordFuerte(p1.value)) {
+        ok = false;
+        p1.classList.add('is-invalid');
+      } else {
+        p1.classList.remove('is-invalid');
+      }
+
+      if (p1.value !== p2.value) {
         ok = false;
         p2.classList.add('is-invalid');
-        errPass2.textContent = 'La contraseña debe tener 4-10 caracteres, incluir mayúscula, minúscula, número y caracter especial.';
+        errPass2.textContent = 'Las contraseñas no coinciden.';
       } else {
         p2.classList.remove('is-invalid');
         errPass2.textContent = '';
       }
+
       if (!ok) {
         e.preventDefault();
         e.stopPropagation();

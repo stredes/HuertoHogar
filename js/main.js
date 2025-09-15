@@ -72,8 +72,8 @@ const PRODUCTOS = [
     { code: "VR002", nombre: "Espinacas Frescas",    precio: 700, unidad: "500 g", stock: 80,  img: "images/espinacas.jpg" },
     { code: "VR003", nombre: "Pimientos Tricolores", precio: 1500, unidad: "kg",   stock: 120, img: "images/pimientos-tricolores.jpeg" },
     // Productos Orgánicos / Lácteos
-    { code: "PO001", nombre: "Miel Orgánica 500g", precio: 5000, unidad: "frasco", stock: 50, img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200" },
-    { code: "PL001", nombre: "Leche Entera 1L",    precio: 1200, unidad: "unidad", stock: 90, img: "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c?q=80&w=1200" },
+    { code: "PO001", nombre: "Miel Orgánica 500g", precio: 5000, unidad: "frasco", stock: 50, img: "images/miel.jpg" },
+    { code: "PL001", nombre: "Leche Entera 1L",    precio: 1200, unidad: "unidad", stock: 90, img: "images/Leche-1L.jpg" },
   ];
   
   // -----------------------------
@@ -266,5 +266,25 @@ const PRODUCTOS = [
   document.addEventListener("DOMContentLoaded", () => {
     renderDestacados();   // Solo hace algo si existe #grid-destacados
     updateCartBadge();    // Refresca título/badge
+
+    // --- Botón de acceso a actualización de datos ---
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      // Buscar navbars en la página
+      const navs = document.querySelectorAll('nav.navbar .navbar-nav');
+      navs.forEach(nav => {
+        // Evitar duplicados
+        if (nav.querySelector('.btn-actualizar-datos')) return;
+        // Crear botón
+        const li = document.createElement('li');
+        li.className = 'nav-item';
+        const a = document.createElement('a');
+        a.href = 'actualizar_datos.html';
+        a.className = 'btn btn-outline-success ms-2 btn-actualizar-datos';
+        a.textContent = 'Perfil';
+        li.appendChild(a);
+        nav.appendChild(li);
+      });
+    }
   });
   

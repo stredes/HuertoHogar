@@ -159,4 +159,32 @@ h1, h2, h3, h4, h5, h6, .display-4, .display-3, .display-2, .display-1 {
   /* Utilidades */
   .text-brown { color: #8d6e63; }
   .bg-brown { background-color: #8d6e63; }
+
+/* =============================
+   Actualizar Datos - Página
+   ============================= */
+.actualizar-datos-container {
+  max-width: 450px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px rgba(25, 135, 84, 0.08);
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+.actualizar-datos-container h2 {
+  color: #198754;
+  font-weight: 700;
+  text-align: center;
+}
+.actualizar-datos-container .form-label {
+  color: #8B4513;
+  font-weight: 500;
+}
+.actualizar-datos-container .btn-success {
+  width: 100%;
+  margin-top: 1rem;
+}
+.actualizar-datos-container .alert-success {
+  text-align: center;
+}
   
