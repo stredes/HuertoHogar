@@ -11,11 +11,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Mostrar requisitos al enfocar el campo de contraseña
   if (p1 && requisitos) {
-    p1.addEventListener('focus', function () {
-      requisitos.style.display = 'block';
-    });
-    p1.addEventListener('blur', function () {
-      requisitos.style.display = 'none';
+    // Inicializar todos los requisitos en rojo
+    const items = requisitos.querySelectorAll('li');
+    items.forEach(item => item.style.color = 'red');
+
+    p1.addEventListener('input', function () {
+      const val = p1.value || '';
+      // Requisitos
+      const reqs = [
+        val.length >= 4 && val.length <= 10,
+        /[A-Z]/.test(val),
+        /[a-z]/.test(val),
+        /\d/.test(val),
+        /[@$!%*?&]/.test(val)
+      ];
+      items.forEach((item, i) => {
+        item.style.color = reqs[i] ? 'green' : 'red';
+      });
     });
   }
 
@@ -30,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function correoPermitido(v) {
     if (!v) return false;
     v = v.toLowerCase();
-    return v.endsWith('@duoc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
+    return v.endsWith('@duocuc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
   }
 
   if (form && p1 && p2 && errPass2) {
