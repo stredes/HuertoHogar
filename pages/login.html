@@ -1,54 +1,141 @@
 <!DOCTYPE html>
+<!-- Documento HTML5 -->
 <html lang="es">
 <head>
+  <!-- Codificación UTF-8 para soportar tildes/ñ -->
   <meta charset="utf-8" />
+  <!-- Viewport para diseño responsive en móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Título de la página (pestaña navegador) -->
   <title>Iniciar sesión | HuertoHogar</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Bootstrap (CSS) desde CDN para estilos y componentes -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"
+  >
+  <!-- Estilos propios del proyecto -->
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
+
+<!-- Fondo gris claro; centrado vertical con flex. Altura mínima 100% viewport -->
 <body class="bg-light d-flex align-items-center" style="min-height:100vh;">
 
+  <!-- Contenedor principal: ancho máximo 520px para enfoque en el formulario -->
   <main class="container" style="max-width:520px;">
     <div class="card shadow-sm">
       <div class="card-body p-4">
+
+        <!-- Branding: link al Home -->
         <div class="text-center mb-3">
           <a class="text-decoration-none fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
         </div>
+
+        <!-- Título de la página -->
         <h1 class="h4 text-success fw-bold mb-3 text-center">Iniciar sesión</h1>
 
+        <!--
+          Formulario de login:
+          - id="form-login": hook para JS (login.js).
+          - novalidate: desactiva validación nativa para usar la personalizada.
+          - needs-validation: clases de Bootstrap para estilos de validación.
+        -->
         <form id="form-login" novalidate class="needs-validation">
+
+          <!-- Campo: Correo electrónico -->
           <div class="mb-3">
-            <label for="correo" class="form-label">Correo <span class="text-danger">*</span></label>
-            <input id="correo" type="email" class="form-control" required maxlength="100" placeholder="usuario@duoc.cl" />
-            <div class="form-text">Dominios permitidos: @duoc.cl, @profesor.duoc.cl, @gmail.com</div>
-            <div class="invalid-feedback" id="err-correo">Ingresa un correo permitido.</div>
+            <label for="correo" class="form-label">
+              Correo <span class="text-danger">*</span>
+            </label>
+            <!--
+              type="email": valida formato básico de email.
+              required / maxlength: restricciones mínimas.
+              *Los dominios permitidos se controlan en login.js (pauta de evaluación).
+            -->
+            <input
+              id="correo"
+              type="email"
+              class="form-control"
+              required
+              maxlength="100"
+              placeholder="usuario@duoc.cl"
+            />
+            <!-- Ayuda contextual: dominios aceptados -->
+            <div class="form-text">
+              Dominios permitidos: @duoc.cl, @profesor.duoc.cl, @gmail.com
+            </div>
+            <!-- Mensaje de error mostrado cuando el dominio no es válido -->
+            <div class="invalid-feedback" id="err-correo">
+              Ingresa un correo permitido.
+            </div>
           </div>
 
+          <!-- Campo: Contraseña -->
           <div class="mb-3">
-            <label for="pass" class="form-label">Contraseña <span class="text-danger">*</span></label>
-            <input id="pass" type="password" class="form-control" required minlength="4" maxlength="10" />
-            <div class="invalid-feedback">La contraseña debe tener entre 4 y 10 caracteres.</div>
+            <label for="pass" class="form-label">
+              Contraseña <span class="text-danger">*</span>
+            </label>
+            <!--
+              required / minlength / maxlength: restricciones de longitud.
+              *La verificación adicional (si existiera) se implementa en login.js.
+            -->
+            <input
+              id="pass"
+              type="password"
+              class="form-control"
+              required
+              minlength="4"
+              maxlength="10"
+            />
+            <div class="invalid-feedback">
+              La contraseña debe tener entre 4 y 10 caracteres.
+            </div>
           </div>
 
+          <!-- Acciones del formulario -->
           <div class="d-grid gap-2">
+            <!-- type="submit": dispara validación y lógica en login.js -->
             <button class="btn btn-success" type="submit">Entrar</button>
+            <!-- Enlace a la página de registro -->
             <a class="btn btn-outline-success" href="registro.html">Crear cuenta</a>
           </div>
         </form>
 
-        <!-- Mensaje de demo -->
+        <!--
+          Mensaje de demostración:
+          - Se muestra/oculta desde login.js (quitando/poniendo d-none).
+          - Para la evaluación no hay backend: se simula el login
+            y se sugiere redirección a productos.html.
+        -->
         <div id="ok" class="alert alert-success mt-3 d-none" role="alert">
-          ✅ Inicio de sesión simulado (solo evaluación). Redirigiendo a <a href="productos.html" class="alert-link">Productos</a>…
+          ✅ Inicio de sesión simulado (solo evaluación). Redirigiendo a
+          <a href="productos.html" class="alert-link">Productos</a>…
         </div>
       </div>
     </div>
   </main>
 
+  <!-- =======================
+       SCRIPTS
+       ======================= -->
+
+  <!-- JS global (ej.: completar año en footer si existiera, helpers) -->
   <script src="../js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap Bundle con Popper para interacciones (collapses, etc.) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Lógica específica de login:
+       - Validación de dominios de correo permitidos
+       - Validación de longitudes (y reglas mínimas)
+       - Simulación de autenticación: muestra #ok y redirige
+       - Opcional: guarda sesión en storage (según tu implementación) -->
   <script src="../js/login.js"></script>
 </body>
 </html>

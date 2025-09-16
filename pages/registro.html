@@ -1,65 +1,159 @@
 <!DOCTYPE html>
+<!-- Declaración del tipo de documento: HTML5 -->
 <html lang="es">
 <head>
+  <!-- Configuración de codificación para soportar acentos/ñ -->
   <meta charset="utf-8" />
+  <!-- Viewport responsive: adapta el layout a móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Título de la pestaña/navegador -->
   <title>Registro | HuertoHogar</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Framework CSS de Bootstrap (vía CDN) para estilos y componentes -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"
+  >
+  <!-- Hoja de estilos propia del proyecto -->
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
+
+<!-- Fondo gris claro con clase utilitaria de Bootstrap -->
 <body class="bg-light">
 
-  <!-- Navbar -->
+  <!-- =======================
+       NAVBAR (barra superior)
+       ======================= -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
+      <!-- Branding / link a Home -->
       <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+
+      <!-- Botón hamburguesa para colapsar/expandir el menú en móviles -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Contenedor colapsable del menú -->
       <div id="nav" class="collapse navbar-collapse">
+        <!-- ms-auto empuja los ítems hacia la derecha -->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
           <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
           <li class="nav-item"><a class="nav-link" href="login.html">Iniciar sesión</a></li>
-          <li class="nav-item"><button id="btnCerrarSesion" class="btn btn-outline-danger ms-2">Cerrar Sesión</button></li>
-          <li class="nav-item"><a class="btn btn-outline-success ms-2" href="carrito.html">🛒 Carrito</a></li>
+
+          <!-- Botón para cerrar sesión (limpia storage y redirige a login) -->
+          <li class="nav-item">
+            <button id="btnCerrarSesion" class="btn btn-outline-danger ms-2">Cerrar Sesión</button>
+          </li>
+
+          <!-- Acceso directo al carrito -->
+          <li class="nav-item">
+            <a class="btn btn-outline-success ms-2" href="carrito.html">🛒 Carrito</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Header -->
+  <!-- =======================
+       HEADER (título de página)
+       ======================= -->
   <header class="bg-white border-bottom">
     <div class="container py-4">
+      <!-- h1 semántico con tamaño visual h3 -->
       <h1 class="h3 text-success fw-bold mb-0">Crear cuenta</h1>
       <p class="text-muted mb-0">Completa el formulario para registrarte.</p>
     </div>
   </header>
 
+  <!-- =======================
+       CONTENIDO PRINCIPAL
+       ======================= -->
   <main class="container my-4">
+    <!--
+      Formulario:
+      - id="form-reg": hook para JS (registro.js).
+      - novalidate: desactiva validación HTML por defecto para usar la personalizada.
+      - needs-validation: clase Bootstrap para estilos de validación.
+      - row g-3: grid con separación (gutter) entre campos.
+    -->
     <form id="form-reg" novalidate class="row g-3 needs-validation">
+
+      <!-- Campo: Nombre -->
       <div class="col-12 col-md-6">
-        <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+        <label for="nombre" class="form-label">
+          Nombre <span class="text-danger">*</span>
+        </label>
+        <!--
+          required: obligatorio
+          maxlength: límite de caracteres (evita oversize en storage/DB)
+        -->
         <input id="nombre" name="nombre" type="text" class="form-control" required maxlength="50" />
+        <!-- Mensaje mostrado por Bootstrap cuando el campo es inválido -->
         <div class="invalid-feedback">Ingresa tu nombre (máx. 50 caracteres).</div>
       </div>
 
+      <!-- Campo: Apellidos -->
       <div class="col-12 col-md-6">
-        <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+        <label for="apellidos" class="form-label">
+          Apellidos <span class="text-danger">*</span>
+        </label>
         <input id="apellidos" name="apellidos" type="text" class="form-control" required maxlength="100" />
         <div class="invalid-feedback">Ingresa tus apellidos (máx. 100 caracteres).</div>
       </div>
 
+      <!-- Campo: Correo -->
       <div class="col-12">
-        <label for="correo" class="form-label">Correo electrónico <span class="text-danger">*</span></label>
-        <input id="correo" name="correo" type="email" class="form-control" required maxlength="100" placeholder="usuario@duocuc.cl" />
-  <div class="form-text">Dominios permitidos: @duocuc.cl, @profesor.duoc.cl, @gmail.com</div>
-        <div class="invalid-feedback" id="err-correo">Ingresa un correo válido y permitido.</div>
+        <label for="correo" class="form-label">
+          Correo electrónico <span class="text-danger">*</span>
+        </label>
+        <!--
+          type="email": activa validación de formato email básica del navegador.
+          placeholder: guía al usuario sobre el formato esperado.
+          *La restricción por dominios permitidos se implementa en JS (registro.js).
+        -->
+        <input
+          id="correo"
+          name="correo"
+          type="email"
+          class="form-control"
+          required
+          maxlength="100"
+          placeholder="usuario@duocuc.cl"
+        />
+        <!-- Ayuda contextual: dominios aceptados a nivel de evaluación -->
+        <div class="form-text">
+          Dominios permitidos: @duocuc.cl, @profesor.duoc.cl, @gmail.com
+        </div>
+        <div class="invalid-feedback" id="err-correo">
+          Ingresa un correo válido y permitido.
+        </div>
       </div>
 
+      <!-- Campo: Contraseña -->
       <div class="col-12 col-md-6">
-        <label for="pass" class="form-label">Contraseña <span class="text-danger">*</span></label>
-        <input id="pass" name="pass" type="password" class="form-control" required minlength="4" maxlength="10" aria-describedby="requisitos-pass" />
+        <label for="pass" class="form-label">
+          Contraseña <span class="text-danger">*</span>
+        </label>
+        <!--
+          minlength/maxlength: requisitos de longitud.
+          aria-describedby: asocia el input con la ayuda de requisitos.
+          *Las reglas de complejidad (may/min/número/símbolo) se validan en JS.
+        -->
+        <input
+          id="pass"
+          name="pass"
+          type="password"
+          class="form-control"
+          required
+          minlength="4"
+          maxlength="10"
+          aria-describedby="requisitos-pass"
+        />
+        <!-- Texto de ayuda con requisitos de password (para la evaluación) -->
         <div id="requisitos-pass" class="form-text" style="font-size:0.95em; color:#8B4513;">
           La contraseña debe tener:
           <ul style="margin-bottom:0;">
@@ -72,39 +166,80 @@
         </div>
       </div>
 
+      <!-- Campo: Confirmación de contraseña -->
       <div class="col-12 col-md-6">
-        <label for="pass2" class="form-label">Confirmar contraseña <span class="text-danger">*</span></label>
+        <label for="pass2" class="form-label">
+          Confirmar contraseña <span class="text-danger">*</span>
+        </label>
+        <!-- *Se valida en JS que coincida con #pass -->
         <input id="pass2" name="pass2" type="password" class="form-control" required />
-  <div class="invalid-feedback" id="err-pass2">Las contraseñas no coinciden.</div>
+        <div class="invalid-feedback" id="err-pass2">Las contraseñas no coinciden.</div>
       </div>
 
+      <!-- Acciones del formulario -->
       <div class="col-12 d-flex gap-2">
+        <!-- type="submit": dispara la validación y el handler de registro.js -->
         <button class="btn btn-success" type="submit">Crear cuenta</button>
+        <!-- Enlace alternativo a iniciar sesión -->
         <a class="btn btn-outline-success" href="login.html">Ya tengo cuenta</a>
       </div>
     </form>
 
-    <!-- Mensaje de éxito simulado (no hay backend en esta entrega) -->
+    <!--
+      Alerta de éxito "simulada":
+      - Se muestra/oculta vía JS (d-none se quita cuando el registro fue "ok").
+      - No hay backend real en esta entrega: solo feedback visual.
+    -->
     <div id="ok" class="alert alert-success mt-4 d-none" role="alert">
-      ✅ Registro simulado correctamente (solo para evaluación). Ahora puedes <a href="login.html" class="alert-link">iniciar sesión</a>.
+      ✅ Registro simulado correctamente (solo para evaluación). Ahora puedes
+      <a href="login.html" class="alert-link">iniciar sesión</a>.
     </div>
   </main>
 
+  <!-- =======================
+       FOOTER
+       ======================= -->
   <footer class="bg-white border-top py-4 mt-5">
     <div class="container d-flex justify-content-between flex-wrap">
+      <!-- #year se completa en ../js/main.js (coloca el año actual) -->
       <small>© <span id="year"></span> HuertoHogar.</small>
     </div>
   </footer>
 
+  <!-- =======================
+       SCRIPTS
+       ======================= -->
+
+  <!-- JS global del sitio (ej: completar año del footer, helpers) -->
   <script src="../js/main.js"></script>
+
+  <!-- Lógica específica de registro:
+       - Validación de campos (HTML5 + reglas extra)
+       - Chequeo de dominios permitidos en correo
+       - Verificación de coincidencia de contraseñas
+       - Mostrar alerta de éxito (#ok) y reseteo del formulario
+  -->
   <script src="../js/registro.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script>
-      document.getElementById('btnCerrarSesion').onclick = function() {
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href = 'login.html';
-      };
-    </script>
+
+  <!-- Bundle de Bootstrap (incluye Popper para tooltips, collapses, etc.) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"
+  ></script>
+
+  <!--
+    Botón "Cerrar Sesión":
+    - Limpia localStorage y sessionStorage (carrito, sesión simulada, etc.)
+    - Redirige a login.html
+    *Este comportamiento es suficiente para una entrega sin backend.
+  -->
+  <script>
+    document.getElementById('btnCerrarSesion').onclick = function () {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = 'login.html';
+    };
+  </script>
 </body>
 </html>
