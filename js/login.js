@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function correoPermitido(v) {
     if (!v) return false;
     v = v.toLowerCase();
-    return v.endsWith('@duoc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
+  return v.endsWith('@duocuc.cl') || v.endsWith('@profesor.duoc.cl') || v.endsWith('@gmail.com');
   }
 
   const form = document.getElementById('form-login');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!correoPermitido(correo.value)) {
       ok = false;
       correo.classList.add('is-invalid');
-      document.getElementById('err-correo').textContent = 'El correo debe pertenecer a @duoc.cl, @profesor.duoc.cl o @gmail.com';
+  document.getElementById('err-correo').textContent = 'El correo debe pertenecer a @duocuc.cl, @profesor.duoc.cl o @gmail.com';
     } else {
       correo.classList.remove('is-invalid');
     }
