@@ -1,4 +1,16 @@
 // Lógica de blog_detalle para blog_detalle.html
+document.addEventListener('DOMContentLoaded', () => {
+  // Lógica para cerrar sesión
+  const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+  if (btnCerrarSesion) {
+    btnCerrarSesion.onclick = cerrarSesion;
+  }
+  function cerrarSesion() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = 'login.html';
+  }
+});
 
 const POSTS = [
   {

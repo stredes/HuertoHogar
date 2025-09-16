@@ -1,6 +1,16 @@
 // Lógica de catálogo y filtros para productos.html
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Lógica para cerrar sesión
+  const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+  if (btnCerrarSesion) {
+    btnCerrarSesion.onclick = cerrarSesion;
+  }
+  function cerrarSesion() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = 'login.html';
+  }
   const formFiltros = document.getElementById('form-filtros');
   const inputQ = document.getElementById('q');
   const selectCategoria = document.getElementById('categoria');
@@ -64,16 +74,32 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="badge bg-warning text-dark align-self-start mb-2">${p.code}</span>
             <h5 class="card-title mb-1">${p.nombre}</h5>
             <p class="card-text text-muted mb-1">${formatPrecio(p.precio)} / ${p.unidad}</p>
+            <p class="card-text mb-1"><strong>Descripción:</strong> ${p.descripcion || 'Sin descripción.'}</p>
+            <p class="card-text mb-1"><strong>Origen:</strong> ${p.origen || 'Sin origen.'}</p>
             <p class="card-text ${sinStock ? 'text-danger' : 'text-body-secondary'}">
               ${sinStock ? 'Sin stock' : `Stock: ${p.stock}`}
             </p>
             <div class="mt-auto d-flex gap-2">
-              <a class="btn btn-outline-success w-50" href="producto_detalle.html?code=${encodeURIComponent(p.code)}">Ver</a>
+              <a class="btn btn-outline-success w-50" href="${getProductoFileName(p.code)}">Ver</a>
               <button class="btn btn-success w-50" data-code="${p.code}" ${sinStock ? 'disabled' : ''}>Añadir</button>
             </div>
           </div>
         </div>
       `;
+// Devuelve el nombre de archivo html para cada producto
+function getProductoFileName(code) {
+  switch(code) {
+    case 'FR001': return 'producto_manzana.html';
+    case 'FR002': return 'producto_naranja.html';
+    case 'FR003': return 'producto_platano.html';
+    case 'VR001': return 'producto_zanahoria.html';
+    case 'VR002': return 'producto_espinaca.html';
+    case 'VR003': return 'producto_pimientos.html';
+    case 'PO001': return 'producto_miel.html';
+    case 'PL001': return 'producto_leche.html';
+    default: return 'productos.html';
+  }
+}
       const btn = col.querySelector('button[data-code]');
       if (btn && !sinStock) {
         btn.addEventListener('click', (e) => {

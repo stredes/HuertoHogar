@@ -24,8 +24,9 @@
     <div class="container-fluid">
       <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
       <span class="navbar-text text-muted ms-2 d-none d-sm-inline">Panel administrador</span>
-      <div class="ms-auto me-3">
+      <div class="ms-auto me-3 d-flex gap-2">
         <a class="btn btn-outline-success" href="../pages/productos.html">Ver tienda</a>
+        <button id="btnCerrarSesion" class="btn btn-outline-danger">Cerrar Sesión</button>
       </div>
     </div>
   </nav>
@@ -183,6 +184,13 @@
 
   <!-- JS compartido (PRODUCTOS, toast, etc.) -->
   <script src="../js/main.js"></script>
+  <script>
+    document.getElementById('btnCerrarSesion').onclick = function() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '../pages/login.html';
+    };
+  </script>
   <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

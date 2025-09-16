@@ -16,6 +16,7 @@
       <a class="navbar-brand fw-bold text-success" href="../index.html">🥑 HuertoHogar</a>
       <span class="navbar-text text-muted ms-2">Panel administrador</span>
       <a class="btn btn-outline-success ms-auto" href="admin_productos.html">← Volver a productos</a>
+      <button id="btnCerrarSesion" class="btn btn-outline-danger ms-2">Cerrar Sesión</button>
     </div>
   </nav>
 
@@ -110,6 +111,13 @@
   <script src="../js/main.js"></script>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  <script>
+    document.getElementById('btnCerrarSesion').onclick = function() {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '../pages/login.html';
+    };
+  </script>
           integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
           crossorigin="anonymous"></script>
 

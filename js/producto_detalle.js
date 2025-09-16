@@ -1,4 +1,16 @@
 function getParam(name){
+document.addEventListener('DOMContentLoaded', () => {
+  // Lógica para cerrar sesión
+  const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+  if (btnCerrarSesion) {
+    btnCerrarSesion.onclick = cerrarSesion;
+  }
+  function cerrarSesion() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = 'login.html';
+  }
+});
   const url = new URL(location.href);
   return url.searchParams.get(name);
 }
@@ -53,12 +65,10 @@ function renderDetalle() {
 
         <hr class="my-4">
 
-        <!-- Descripción corta sugerida (puedes personalizar por categoría) -->
+        <!-- Descripción y origen del producto -->
         <div class="text-muted">
-          <p>
-            Producto fresco y seleccionado de HuertoHogar. Ideal para preparaciones saludables,
-            directo del campo a tu mesa. Mantener en lugar fresco y ventilado.
-          </p>
+          <p><strong>Descripción:</strong> ${p.descripcion || 'Sin descripción.'}</p>
+          <p><strong>Origen:</strong> ${p.origen || 'Sin origen.'}</p>
           <ul class="mb-0">
             <li>Unidad de venta: ${p.unidad}</li>
             <li>Código: ${p.code}</li>

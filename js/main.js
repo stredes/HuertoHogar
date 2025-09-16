@@ -29,7 +29,7 @@ function renderCatalogo() {
             ${sinStock ? 'Sin stock' : `Stock: ${p.stock}`}
           </p>
           <div class="mt-auto d-flex gap-2">
-            <a class="btn btn-outline-success w-50" href="producto_detalle.html?code=${encodeURIComponent(p.code)}">Ver</a>
+            <a class="btn btn-outline-success w-50" href="pages/${getProductoFileName(p.code)}">Ver</a>
             <button class="btn btn-success w-50" data-code="${p.code}" ${sinStock ? 'disabled' : ''}>Añadir</button>
           </div>
         </div>
@@ -64,16 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // -----------------------------
 const PRODUCTOS = [
     // Frutas Frescas
-  { code: "FR001", nombre: "Manzanas Fuji", precio: 1200, unidad: "kg",     stock: 150, img: "images/manzana.jpeg" },
-    { code: "FR002", nombre: "Naranjas Valencia", precio: 1000, unidad: "kg",  stock: 200, img: "images/naranja.jpeg" },
-    { code: "FR003", nombre: "Plátanos Cavendish", precio: 800,  unidad: "kg", stock: 250, img: "images/platanos-cavendish.jpg" },
+  { code: "FR001", nombre: "Manzanas Fuji", precio: 1200, unidad: "kg", stock: 150, img: "images/manzana.jpeg", descripcion: "Manzanas frescas, dulces y crujientes, ideales para postres y snacks.", origen: "Región del Maule, Chile" },
+    { code: "FR002", nombre: "Naranjas Valencia", precio: 1000, unidad: "kg", stock: 200, img: "images/naranja.jpeg", descripcion: "Naranjas jugosas y llenas de vitamina C, perfectas para jugos.", origen: "Región de Coquimbo, Chile" },
+    { code: "FR003", nombre: "Plátanos Cavendish", precio: 800, unidad: "kg", stock: 250, img: "images/platanos-cavendish.jpg", descripcion: "Plátanos suaves y energéticos, fuente natural de potasio.", origen: "Región de Los Ríos, Chile" },
     // Verduras Orgánicas
-    { code: "VR001", nombre: "Zanahorias Orgánicas", precio: 900, unidad: "kg",    stock: 100, img: "images/zanahoria.jpg" },
-    { code: "VR002", nombre: "Espinacas Frescas",    precio: 700, unidad: "500 g", stock: 80,  img: "images/espinacas.jpg" },
-    { code: "VR003", nombre: "Pimientos Tricolores", precio: 1500, unidad: "kg",   stock: 120, img: "images/pimientos-tricolores.jpeg" },
+    { code: "VR001", nombre: "Zanahorias Orgánicas", precio: 900, unidad: "kg", stock: 100, img: "images/zanahoria.jpg", descripcion: "Zanahorias cultivadas sin pesticidas, ideales para ensaladas y jugos.", origen: "Región Metropolitana, Chile" },
+    { code: "VR002", nombre: "Espinacas Frescas", precio: 700, unidad: "500 g", stock: 80, img: "images/espinacas.jpg", descripcion: "Espinacas verdes y tiernas, ricas en hierro y vitaminas.", origen: "Región de O'Higgins, Chile" },
+    { code: "VR003", nombre: "Pimientos Tricolores", precio: 1500, unidad: "kg", stock: 120, img: "images/pimientos-tricolores.jpeg", descripcion: "Pimientos rojos, verdes y amarillos, perfectos para salteados y ensaladas.", origen: "Región del Biobío, Chile" },
     // Productos Orgánicos / Lácteos
-    { code: "PO001", nombre: "Miel Orgánica 500g", precio: 5000, unidad: "frasco", stock: 50, img: "images/miel.jpg" },
-    { code: "PL001", nombre: "Leche Entera 1L",    precio: 1200, unidad: "unidad", stock: 90, img: "images/Leche-1L.jpg" },
+    { code: "PO001", nombre: "Miel Orgánica 500g", precio: 5000, unidad: "frasco", stock: 50, img: "images/miel.jpg", descripcion: "Miel pura y natural, recolectada de abejas libres de químicos.", origen: "Región de Los Lagos, Chile" },
+    { code: "PL001", nombre: "Leche Entera 1L", precio: 1200, unidad: "unidad", stock: 90, img: "images/Leche-1L.jpg", descripcion: "Leche fresca y entera, fuente de calcio y proteínas.", origen: "Región de La Araucanía, Chile" },
   ];
   
   // -----------------------------
@@ -221,7 +221,7 @@ const PRODUCTOS = [
               ${sinStock ? 'Sin stock' : `Stock: ${p.stock}`}
             </p>
             <div class="mt-auto d-flex gap-2">
-              <a href="pages/producto_detalle.html?code=${encodeURIComponent(p.code)}" class="btn btn-outline-success w-50">Ver</a>
+              <a href="pages/${getProductoFileName(p.code)}" class="btn btn-outline-success w-50">Ver</a>
               <button class="btn btn-success w-50" data-code="${p.code}" ${sinStock ? "disabled" : ""}>Añadir</button>
             </div>
           </div>
@@ -257,6 +257,21 @@ const PRODUCTOS = [
       }).format(n);
     } catch {
       return `$${n}`;
+    }
+  }
+
+  // Devuelve el nombre de archivo html para cada producto
+  function getProductoFileName(code) {
+    switch(code) {
+      case 'FR001': return 'producto_manzana.html';
+      case 'FR002': return 'producto_naranja.html';
+      case 'FR003': return 'producto_platano.html';
+      case 'VR001': return 'producto_zanahoria.html';
+      case 'VR002': return 'producto_espinaca.html';
+      case 'VR003': return 'producto_pimientos.html';
+      case 'PO001': return 'producto_miel.html';
+      case 'PL001': return 'producto_leche.html';
+      default: return 'productos.html';
     }
   }
   
