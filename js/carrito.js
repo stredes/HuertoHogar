@@ -1,16 +1,7 @@
 // Lógica de carrito para carrito.html
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Lógica para cerrar sesión
-  const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-  if (btnCerrarSesion) {
-    btnCerrarSesion.onclick = cerrarSesion;
-  }
-  function cerrarSesion() {
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.href = 'login.html';
-  }
+  // ...existing code...
   // Helpers UI
   function byId(id){ return document.getElementById(id); }
 
