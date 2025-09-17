@@ -1,7 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
 // Lógica de carrito para carrito.html
 
-// Espera a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
   // Helper para obtener elementos por id
   function byId(id){ return document.getElementById(id); }
